@@ -14,23 +14,23 @@ module.exports = function(app) {
     const initUnit = convertHandler.getUnit(input);
 
     if (!initNum && !initUnit) {
-      return res.json({ error: "Invalid number and unit" });
+      return res.json({ error: "invalid number and unit" });
     } else if (!initNum) {
-      return res.json({ error: "Invalid number" });
+      return res.json({ error: "invalid number" });
     } else if (!initUnit) {
-      return res.json({ error: "Invalid unit" })
+      return res.json({ error: "invalid unit" })
     }
 
 
     const returnUnit = convertHandler.getReturnUnit(initUnit);
-    const returnNum = convertHandler.convert(initNum, initUnit);
+    const returnNum = parseFloat(convertHandler.convert(initNum, initUnit)).toFixed(5);
 
     const toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
 
     res.json({
       initNum,
       initUnit,
-      returnNum,
+      returnNum: Number(returnNum),
       returnUnit,
       string: toString
     });
